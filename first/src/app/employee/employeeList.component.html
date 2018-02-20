@@ -1,0 +1,48 @@
+<br />
+<empoloyeeCount *ngIf="employees" [all]='getTotalEmployeesCount()' [male]='getMaleEmployeesCount()' [female]='getFemaleEmployeeCount()'
+(countRadioButtonSelectionChanged)="onEmployeeCountRadioButtonChange($event)"
+></empoloyeeCount>
+<br />
+<table>
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Annual Salary</th>
+            <th>Date of Birth</th>
+            <th>Index</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let employee of employees;    
+        let i = index; let isFirst = even;">
+        <tr
+        *ngIf="selectedEmployeeCountRadioButton=='All' || 
+        selectedEmployeeCountRadioButton==employee.gender">
+            <td>
+                <a [routerLink]="['/employee', employee.code]">
+                    {{employee.code | uppercase}}
+                </a>
+            </td>
+            <td>{{employee.name | employeeTitle: employee.gender}}</td>
+            <td>{{employee.gender}}</td>
+            <td>{{employee.annualSalary | currency : 'EUR':true:'1.3-3'}}</td>
+            <td>{{employee.dateOfBirth | date: 'fullDate' | uppercase}}</td>
+            <td>{{!isFirst}}</td>
+        </tr>
+        </ng-container>
+        <tr *ngIf="!employees">
+            <td colspan="5">
+                {{statusMessage}}
+            </td>
+        </tr>
+        <tr *ngIf="employees && employees.length==0">
+            <td colspan="5">
+                No employees to display
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<button (click) = 'getEmployees()'>Reset Employees</button>

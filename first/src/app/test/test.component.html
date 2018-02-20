@@ -1,0 +1,19 @@
+<!--<H1> Hi {{name}}</H1>-->
+
+<button class="btn btn-primary" [disabled]="isAdd" (click)="adduser()" >Add</button>
+<p *ngIf='ifcondition'> Welcome {{name}}</p> 
+<hr>
+<div *ngFor='let item of applist'>
+<ul>
+    <li>
+        {{item.id}}
+    </li>
+    <li>
+        {{item.name}}
+    </li>
+</ul>
+</div>
+<hr>
+<button style="color:green" [ngStyle]="addstyles()">Test Style</button>
+
+<button on-click='onClick()'>Click Me</button>
